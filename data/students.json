@@ -1,0 +1,163 @@
+[
+  {
+    "id": "DKM03020001",
+    "password": "Dkm2026",
+    "name": "Ahmad Farhan",
+    "program": "Diploma Kejuruteraan Mekanikal",
+    "company": "Tech Solutions Sdn. Bhd.",
+    "address": "Cyberjaya, Selangor",
+    "industrySupervisor": "En. Rizal Hamdan",
+    "universitySupervisor": "IZAH BINTI MD JEDI",
+    "startDate": "2025-06-02",
+    "endDate": "2025-11-14",
+    "photo": "",
+    "logs": [
+      {
+        "week": 1,
+        "startDate": "2025-01-06",
+        "endDate": "2025-01-10",
+        "activity": "Orientasi syarikat dan pengenalan tugasan latihan industri",
+        "learning": "Memahami peraturan dan struktur organisasi.",
+        "status": "approved",
+        "activityImage": ""
+      },
+      {
+        "week": 2,
+        "startDate": "2025-01-13",
+        "endDate": "2025-01-17",
+        "activity": "Membantu kemaskini dokumen dan fail projek",
+        "learning": "Meningkatkan kemahiran pengurusan dokumen.",
+        "status": "approved",
+        "activityImage": ""
+      },
+      {
+        "week": 3,
+        "startDate": "2025-01-20",
+        "endDate": "2025-01-24",
+        "activity": "Membuat semakan keperluan sistem",
+        "learning": "Belajar mengenal pasti masalah pengguna.",
+        "status": "approved",
+        "activityImage": ""
+      },
+      {
+        "week": 4,
+        "startDate": "2025-01-27",
+        "endDate": "2025-01-31",
+        "activity": "Menyediakan rekod awal dan dokumentasi teknikal",
+        "learning": "Belajar menyusun dokumentasi projek.",
+        "status": "approved",
+        "activityImage": ""
+      },
+      {
+        "week": 5,
+        "startDate": "2025-02-03",
+        "endDate": "2025-02-07",
+        "activity": "Membantu kerja sokongan sistem dalaman",
+        "learning": "Memahami aliran kerja sokongan teknikal.",
+        "status": "approved",
+        "activityImage": "",
+        "approvedBy": "IZAH BINTI MD JEDI",
+        "approvedAt": "2026-06-25T14:01:25.649Z"
+      },
+      {
+        "week": 6,
+        "startDate": "2025-01-27",
+        "endDate": "2025-01-31",
+        "activity": "Rekabentuk pangkalan data",
+        "learning": "Memahami hubungan data untuk sistem latihan industri.",
+        "status": "approved",
+        "activityImage": ""
+      },
+      {
+        "week": 7,
+        "startDate": "2025-02-03",
+        "endDate": "2025-02-07",
+        "activity": "Ujian API integrasi sistem",
+        "learning": "Belajar menguji aliran data dari frontend ke backend.",
+        "status": "approved",
+        "activityImage": ""
+      },
+      {
+        "week": 8,
+        "startDate": "2025-02-10",
+        "endDate": "2025-02-14",
+        "activity": "Pembangunan modul laporan PDF",
+        "learning": "Menyusun laporan mingguan untuk semakan.",
+        "status": "pending",
+        "activityImage": ""
+      }
+    ],
+    "signature": {
+      "supervisorName": "IZAH BINTI MD JEDI",
+      "note": "Laporan telah disemak dan disahkan.",
+      "signedAt": "2026-06-25T13:54:53.336Z"
+    }
+  },
+  {
+    "id": "DKM03020305",
+    "password": "Dkm2026",
+    "name": "Nur Alisa Shazliyana",
+    "program": "Diploma Kejuruteraan Mekanikal",
+    "company": "Maju Industri Sdn. Bhd.",
+    "address": "Shah Alam, Selangor",
+    "industrySupervisor": "Pn. Laila Karim",
+    "universitySupervisor": "IZAH BINTI MD JEDI",
+    "startDate": "2025-06-02",
+    "endDate": "2025-11-14",
+    "photo": "",
+    "logs": [
+      {
+        "week": 1,
+        "startDate": "2025-06-02",
+        "endDate": "2025-06-06",
+        "activity": "Orientasi syarikat dan pengenalan prosedur kerja.",
+        "learning": "Memahami peraturan keselamatan dan struktur organisasi.",
+        "status": "approved",
+        "activityImage": ""
+      },
+      {
+        "week": 2,
+        "startDate": "2025-06-09",
+        "endDate": "2025-06-13",
+        "activity": "Membantu kemas kini rekod inventori dan semakan dokumen teknikal.",
+        "learning": "Meningkatkan ketelitian semasa mengurus dokumen operasi.",
+        "status": "pending",
+        "activityImage": ""
+      }
+    ],
+    "signature": {
+      "supervisorName": "",
+      "signedAt": "",
+      "note": ""
+    }
+  },
+  {
+    "id": "DKM03020062",
+    "password": "Dkm2026",
+    "name": "Nor Faseha Binti Mohd Halim",
+    "program": "Diploma Kejuruteraan Mekanikal",
+    "company": "Inovasi Teknik Sdn. Bhd.",
+    "address": "Klang, Selangor",
+    "industrySupervisor": "En. Hafiz Rahman",
+    "universitySupervisor": "IZAH BINTI MD JEDI",
+    "startDate": "2025-06-02",
+    "endDate": "2025-11-14",
+    "photo": "",
+    "logs": [
+      {
+        "week": 1,
+        "startDate": "2025-06-02",
+        "endDate": "2025-06-06",
+        "activity": "Pengenalan kepada mesin dan rekod penyelenggaraan.",
+        "learning": "Mengenal pasti dokumen pemeriksaan berkala.",
+        "status": "approved",
+        "activityImage": ""
+      }
+    ],
+    "signature": {
+      "supervisorName": "",
+      "signedAt": "",
+      "note": ""
+    }
+  }
+]

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Sistem LI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="app-page" data-page="student-dashboard">
+  <div class="layout student-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">Sistem LI</div>
+      <nav>
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="log.html">Log Mingguan</a>
+        <a href="laporan.html">Laporan</a>
+        <a href="#syarikat-panel" data-student-panel="company">Syarikat</a>
+        <a href="#penyelia-panel" data-student-panel="supervisor">Penyelia</a>
+      </nav>
+      <button class="logout" data-logout>Log Keluar</button>
+    </aside>
+
+    <main class="content student-content">
+      <header class="topbar student-topbar">
+        <h1 id="welcomeName">Selamat Datang, Ahmad Farhan</h1>
+        <span class="badge-info" id="trainingRange">Jun - Nov 2025</span>
+      </header>
+
+      <section class="box student-box student-profile-box">
+        <img id="studentPhoto" class="passport-photo" alt="Gambar passport pelajar">
+        <div class="profile-info">
+          <h2>Profil Pelajar</h2>
+          <div class="info-grid compact">
+            <div class="info-item">
+              <span class="info-label">Nama</span>
+              <span id="studentName">Ahmad Farhan</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">No. Matrik</span>
+              <span id="studentId">DKM03020001</span>
+            </div>
+          </div>
+        </div>
+        <label class="upload-btn passport-upload">
+          Upload Gambar Passport
+          <input id="photoInput" type="file" accept="image/*">
+        </label>
+      </section>
+
+      <section class="cards student-cards">
+        <div class="card stat-card">
+          <span class="card-icon">📅</span>
+          <span class="card-label">Minggu Berlalu</span>
+          <span class="card-value" id="weekProgress">8 / 24</span>
+        </div>
+        <div class="card stat-card">
+          <span class="card-icon">📋</span>
+          <span class="card-label">Log Dihantar</span>
+          <span class="card-value" id="logCount">8</span>
+        </div>
+        <div class="card stat-card">
+          <span class="card-icon">✅</span>
+          <span class="card-label">Log Disahkan</span>
+          <span class="card-value" id="approvedCount">6</span>
+        </div>
+        <div class="card stat-card">
+          <span class="card-icon">⭐</span>
+          <span class="card-label">Markah Semasa</span>
+          <span class="card-value">82%</span>
+        </div>
+      </section>
+
+      <section class="box student-box">
+        <div class="box-header">
+          <h2>Log Mingguan Terkini</h2>
+          <a href="log.html" class="btn primary">+ Tambah Log</a>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Minggu</th>
+                <th>Tarikh</th>
+                <th>Aktiviti</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="studentLogs"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="box student-box placement-box">
+        <h2>Maklumat Penempatan</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Syarikat</span>
+            <span id="companyName">Tech Solutions Sdn. Bhd.</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Alamat</span>
+            <span id="companyAddress">Cyberjaya, Selangor</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Penyelia Industri</span>
+            <span id="industrySupervisor">En. Rizal Hamdan</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Penyelia Universiti</span>
+            <span id="universitySupervisor">IZAH BINTI MD JEDI</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="box student-box student-detail-panel" id="syarikat-panel" hidden>
+        <div class="box-header">
+          <h2>Paparan Syarikat</h2>
+          <span class="badge-info">Maklumat Industri</span>
+        </div>
+        <div class="detail-grid">
+          <div class="mini-panel">
+            <strong>Nama Syarikat</strong>
+            <span id="companyPanelName">Tech Solutions Sdn. Bhd.</span>
+          </div>
+          <div class="mini-panel">
+            <strong>Alamat</strong>
+            <span id="companyPanelAddress">Cyberjaya, Selangor</span>
+          </div>
+          <div class="mini-panel">
+            <strong>Penyelia Industri</strong>
+            <span id="companyPanelSupervisor">En. Rizal Hamdan</span>
+          </div>
+          <div class="mini-panel">
+            <strong>Tempoh LI</strong>
+            <span id="companyPanelPeriod">Jun - Nov 2025</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="box student-box student-detail-panel" id="penyelia-panel" hidden>
+        <div class="box-header">
+          <h2>Paparan Penyelia</h2>
+          <span class="badge-info">Universiti & Industri</span>
+        </div>
+        <div class="detail-grid">
+          <div class="mini-panel">
+            <strong>Penyelia Universiti</strong>
+            <span id="supervisorPanelUniversity">IZAH BINTI MD JEDI</span>
+            <span>Izah@micost.edu.my</span>
+          </div>
+          <div class="mini-panel">
+            <strong>Penyelia Industri</strong>
+            <span id="supervisorPanelIndustry">En. Rizal Hamdan</span>
+            <span id="supervisorPanelCompany">Tech Solutions Sdn. Bhd.</span>
+          </div>
+          <div class="mini-panel">
+            <strong>Status Pengesahan</strong>
+            <span id="supervisorPanelSign">Belum sign</span>
+          </div>
+          <div class="mini-panel">
+            <strong>Report Disahkan</strong>
+            <span id="supervisorPanelApproved">0 log</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

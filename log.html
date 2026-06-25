@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log Mingguan - Sistem LI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="app-page" data-page="log">
+  <div class="layout student-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">🎓 Sistem LI</div>
+      <nav>
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="log.html" class="active">📋 Log Mingguan</a>
+        <a href="laporan.html">📝 Laporan</a>
+        <a href="#">🏢 Syarikat</a>
+        <a href="#">👨‍🏫 Penyelia</a>
+      </nav>
+      <button class="logout" data-logout>🚪 Log Keluar</button>
+    </aside>
+
+    <main class="content student-content">
+      <header class="topbar log-titlebar">
+        <h1>📋 Log Mingguan</h1>
+      </header>
+
+      <section class="box student-box log-box">
+        <h2>Tambah Log Baru</h2>
+        <form id="logForm" class="form-grid student-log-form">
+          <div class="field">
+            <label for="week">Minggu Ke-</label>
+            <input id="week" type="number" min="1" max="28" placeholder="Contoh: 9" required>
+          </div>
+          <div class="field">
+            <label for="startDate">Tarikh Mula</label>
+            <input id="startDate" type="date" required>
+          </div>
+          <div class="field">
+            <label for="endDate">Tarikh Akhir</label>
+            <input id="endDate" type="date" required>
+          </div>
+          <div class="field full">
+            <label for="activity">Aktiviti / Tugasan</label>
+            <textarea id="activity" rows="4" required placeholder="Terangkan aktiviti minggu ini..."></textarea>
+          </div>
+          <div class="field full">
+            <label for="learning">Pembelajaran / Pengalaman</label>
+            <textarea id="learning" rows="3" placeholder="Apa yang dipelajari..."></textarea>
+          </div>
+          <div class="field full">
+            <label for="activityImage">Gambar Aktiviti</label>
+            <input id="activityImage" type="file" accept="image/*">
+          </div>
+          <div class="field full form-actions">
+            <a href="dashboard.html" class="btn secondary">Batal</a>
+            <button type="submit" class="btn primary">Hantar Log</button>
+          </div>
+          <p id="formMsg" class="success-msg full" hidden>Log berjaya disimpan.</p>
+        </form>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

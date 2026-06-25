@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Sistem E-LI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="app-page" data-page="admin">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">Sistem E-LI</div>
+      <span class="sidebar-role" id="adminRoleLabel">Admin</span>
+      <nav>
+        <a href="admin.html" class="active">Dashboard</a>
+        <a href="#student-section">Senarai Pelajar</a>
+        <a href="#tools-section" class="admin-only-link">Tools Admin</a>
+      </nav>
+      <button class="logout" data-logout>Log Keluar</button>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" id="adminEyebrow">Pentadbiran</p>
+          <h1 id="adminTitle">Dashboard Admin</h1>
+        </div>
+        <span class="badge-info" id="adminModeBadge">Tools penuh</span>
+      </header>
+
+      <section class="cards admin-stats" id="adminStats"></section>
+
+      <section class="box admin-tools-box" id="tools-section">
+        <div class="box-header">
+          <h2 id="toolsTitle">Tools Admin</h2>
+        </div>
+        <div class="admin-tools-grid" id="adminTools"></div>
+      </section>
+
+      <section class="box tool-detail-box" id="toolDetail" hidden></section>
+
+      <section class="box" id="student-section">
+        <div class="box-header">
+          <h2>Tekan nama pelajar untuk lihat report mingguan</h2>
+          <input id="studentSearch" class="search" type="search" placeholder="Cari nama atau matrik">
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nama Pelajar</th>
+                <th>No. Matrik</th>
+                <th>Tempoh LI</th>
+                <th>Log</th>
+                <th>Pengesahan</th>
+              </tr>
+            </thead>
+            <tbody id="studentList"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

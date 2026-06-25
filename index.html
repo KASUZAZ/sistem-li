@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log Masuk - Sistem LI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+  <main class="login-shell">
+    <section class="login-panel">
+      <div class="brand">
+        <span class="brand-mark">🎓</span>
+        <div>
+          <h1>Sistem LI</h1>
+          <p>Portal Latihan Industri</p>
+        </div>
+      </div>
+
+      <form id="loginForm" class="login-form">
+        <div class="field">
+          <label for="matrik">No. Matrik</label>
+          <input type="text" id="matrik" autocomplete="username" placeholder="Contoh: A21FC0001">
+        </div>
+
+        <div class="field">
+          <label for="password">Kata Laluan</label>
+          <input type="password" id="password" autocomplete="current-password" placeholder="Masukkan kata laluan">
+        </div>
+
+        <div class="field">
+          <label for="role">Peranan</label>
+          <select id="role">
+            <option value="student">Pelajar</option>
+            <option value="supervisor">Penyelia Universiti</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+
+        <p id="errorMsg" class="error-msg" hidden>No. Matrik atau kata laluan salah.</p>
+        <button class="btn primary" type="submit">Log Masuk</button>
+      </form>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
