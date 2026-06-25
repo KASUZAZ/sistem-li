@@ -1,7 +1,7 @@
 [
   {
     "id": "DKM03020001",
-    "password": "Dkm2026",
+    "password": "dkm2",
     "name": "Ahmad Farhan",
     "program": "Diploma Kejuruteraan Mekanikal",
     "company": "Tech Solutions Sdn. Bhd.",
@@ -95,8 +95,8 @@
   },
   {
     "id": "DKM03020305",
-    "password": "Dkm2026",
-    "name": "Nur Alisa Shazliyana",
+    "password": "dkm2",
+    "name": "Nurul Aina",
     "program": "Diploma Kejuruteraan Mekanikal",
     "company": "Maju Industri Sdn. Bhd.",
     "address": "Shah Alam, Selangor",
@@ -133,8 +133,8 @@
   },
   {
     "id": "DKM03020062",
-    "password": "Dkm2026",
-    "name": "Nor Faseha Binti Mohd Halim",
+    "password": "dkm2",
+    "name": "Farhana Izzati",
     "program": "Diploma Kejuruteraan Mekanikal",
     "company": "Inovasi Teknik Sdn. Bhd.",
     "address": "Klang, Selangor",
@@ -154,6 +154,101 @@
         "activityImage": ""
       }
     ],
+    "signature": {
+      "supervisorName": "",
+      "signedAt": "",
+      "note": ""
+    }
+  },
+  {
+    "id": "DKM03020045",
+    "password": "dkm2",
+    "name": "Afeeq Haikal",
+    "program": "Diploma Kejuruteraan Mekanikal",
+    "company": "Prima Mekanik Sdn. Bhd.",
+    "address": "Bangi, Selangor",
+    "industrySupervisor": "En. Faizal Rahim",
+    "universitySupervisor": "IZAH BINTI MD JEDI",
+    "startDate": "2025-06-02",
+    "endDate": "2025-11-14",
+    "photo": "",
+    "logs": [],
+    "signature": {
+      "supervisorName": "",
+      "signedAt": "",
+      "note": ""
+    }
+  },
+  {
+    "id": "DKM03020068",
+    "password": "dkm2",
+    "name": "Danial Iskandar",
+    "program": "Diploma Kejuruteraan Mekanikal",
+    "company": "Mega Auto Engineering",
+    "address": "Seremban, Negeri Sembilan",
+    "industrySupervisor": "En. Amir Hakim",
+    "universitySupervisor": "IZAH BINTI MD JEDI",
+    "startDate": "2025-06-02",
+    "endDate": "2025-11-14",
+    "photo": "",
+    "logs": [],
+    "signature": {
+      "supervisorName": "",
+      "signedAt": "",
+      "note": ""
+    }
+  },
+  {
+    "id": "DKM03020082",
+    "password": "dkm2",
+    "name": "Mohd Amin",
+    "program": "Diploma Kejuruteraan Mekanikal",
+    "company": "Kejuruteraan Maju Jaya",
+    "address": "Melaka Tengah, Melaka",
+    "industrySupervisor": "En. Zulkifli Hassan",
+    "universitySupervisor": "IZAH BINTI MD JEDI",
+    "startDate": "2025-06-02",
+    "endDate": "2025-11-14",
+    "photo": "",
+    "logs": [],
+    "signature": {
+      "supervisorName": "",
+      "signedAt": "",
+      "note": ""
+    }
+  },
+  {
+    "id": "DKM03040036",
+    "password": "dkm2",
+    "name": "Ismail Fizi",
+    "program": "Diploma Kejuruteraan Mekanikal",
+    "company": "Industri Teknologi Utara",
+    "address": "Ipoh, Perak",
+    "industrySupervisor": "En. Khairul Nizam",
+    "universitySupervisor": "IZAH BINTI MD JEDI",
+    "startDate": "2025-06-02",
+    "endDate": "2025-11-14",
+    "photo": "",
+    "logs": [],
+    "signature": {
+      "supervisorName": "",
+      "signedAt": "",
+      "note": ""
+    }
+  },
+  {
+    "id": "DKM03040055",
+    "password": "dkm2",
+    "name": "Athirah Shiela",
+    "program": "Diploma Kejuruteraan Mekanikal",
+    "company": "Dynamic Fabrication Sdn. Bhd.",
+    "address": "Nilai, Negeri Sembilan",
+    "industrySupervisor": "Pn. Siti Mariam",
+    "universitySupervisor": "IZAH BINTI MD JEDI",
+    "startDate": "2025-06-02",
+    "endDate": "2025-11-14",
+    "photo": "",
+    "logs": [],
     "signature": {
       "supervisorName": "",
       "signedAt": "",

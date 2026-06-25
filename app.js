@@ -74,7 +74,7 @@ function toStudent(row, logs = [], signature = null) {
 function toDbStudent(student) {
   return {
     id: student.id,
-    password: student.password || "Dkm2026",
+    password: student.password || "dkm2",
     name: student.name,
     program: student.program || "Diploma Kejuruteraan Mekanikal",
     company: student.company || "-",
@@ -201,7 +201,7 @@ function studentFromCsvRow(row) {
   if (!id) return null;
   return {
     id,
-    password: pick(row, ["password", "kata_laluan", "katalaluan"], "Dkm2026"),
+    password: pick(row, ["password", "kata_laluan", "katalaluan"], "dkm2"),
     name: pick(row, ["name", "nama", "nama_pelajar"], id),
     program: pick(row, ["program", "kursus"], "Diploma Kejuruteraan Mekanikal"),
     company: pick(row, ["company", "syarikat", "nama_syarikat"], "-"),

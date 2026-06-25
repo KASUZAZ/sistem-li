@@ -3,7 +3,7 @@
 
 create table if not exists public.students (
   id text primary key,
-  password text not null default 'Dkm2026',
+  password text not null default 'dkm2',
   name text not null,
   program text not null default 'Diploma Kejuruteraan Mekanikal',
   company text not null default '',
@@ -60,10 +60,16 @@ on conflict (login) do update set
 insert into public.students
   (id, password, name, program, company, address, industry_supervisor, university_supervisor, start_date, end_date)
 values
-  ('DKM03020001', 'Dkm2026', 'Ahmad Farhan', 'Diploma Kejuruteraan Mekanikal', 'Tech Solutions Sdn. Bhd.', 'Cyberjaya, Selangor', 'En. Rizal Hamdan', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14'),
-  ('DKM03020305', 'Dkm2026', 'Nur Alisa Shazliyana', 'Diploma Kejuruteraan Mekanikal', 'Maju Industri Sdn. Bhd.', 'Shah Alam, Selangor', 'Pn. Laila Karim', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14'),
-  ('DKM03020062', 'Dkm2026', 'Nor Faseha Binti Mohd Halim', 'Diploma Kejuruteraan Mekanikal', 'Inovasi Teknik Sdn. Bhd.', 'Klang, Selangor', 'En. Hafiz Rahman', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14')
+  ('DKM03020001', 'dkm2', 'Ahmad Farhan', 'Diploma Kejuruteraan Mekanikal', 'Tech Solutions Sdn. Bhd.', 'Cyberjaya, Selangor', 'En. Rizal Hamdan', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14'),
+  ('DKM03020305', 'dkm2', 'Nurul Aina', 'Diploma Kejuruteraan Mekanikal', 'Maju Industri Sdn. Bhd.', 'Shah Alam, Selangor', 'Pn. Laila Karim', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14'),
+  ('DKM03020062', 'dkm2', 'Farhana Izzati', 'Diploma Kejuruteraan Mekanikal', 'Inovasi Teknik Sdn. Bhd.', 'Klang, Selangor', 'En. Hafiz Rahman', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14'),
+  ('DKM03020045', 'dkm2', 'Afeeq Haikal', 'Diploma Kejuruteraan Mekanikal', 'Prima Mekanik Sdn. Bhd.', 'Bangi, Selangor', 'En. Faizal Rahim', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14'),
+  ('DKM03020068', 'dkm2', 'Danial Iskandar', 'Diploma Kejuruteraan Mekanikal', 'Mega Auto Engineering', 'Seremban, Negeri Sembilan', 'En. Amir Hakim', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14'),
+  ('DKM03020082', 'dkm2', 'Mohd Amin', 'Diploma Kejuruteraan Mekanikal', 'Kejuruteraan Maju Jaya', 'Melaka Tengah, Melaka', 'En. Zulkifli Hassan', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14'),
+  ('DKM03040036', 'dkm2', 'Ismail Fizi', 'Diploma Kejuruteraan Mekanikal', 'Industri Teknologi Utara', 'Ipoh, Perak', 'En. Khairul Nizam', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14'),
+  ('DKM03040055', 'dkm2', 'Athirah Shiela', 'Diploma Kejuruteraan Mekanikal', 'Dynamic Fabrication Sdn. Bhd.', 'Nilai, Negeri Sembilan', 'Pn. Siti Mariam', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14')
 on conflict (id) do update set
+  password = excluded.password,
   name = excluded.name,
   program = excluded.program,
   company = excluded.company,
@@ -101,7 +107,12 @@ on conflict (student_id, week) do update set
 insert into public.signatures (student_id, supervisor_name, note, signed_at) values
   ('DKM03020001', 'IZAH BINTI MD JEDI', 'Laporan telah disemak dan disahkan.', '2026-06-25T13:54:53.336Z'),
   ('DKM03020305', '', '', null),
-  ('DKM03020062', '', '', null)
+  ('DKM03020062', '', '', null),
+  ('DKM03020045', '', '', null),
+  ('DKM03020068', '', '', null),
+  ('DKM03020082', '', '', null),
+  ('DKM03040036', '', '', null),
+  ('DKM03040055', '', '', null)
 on conflict (student_id) do update set
   supervisor_name = excluded.supervisor_name,
   note = excluded.note,

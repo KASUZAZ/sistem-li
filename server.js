@@ -154,7 +154,7 @@ function studentFromCsvRow(row) {
 
   return {
     id,
-    password: pick(row, ["password", "kata_laluan", "katalaluan"], "Dkm2026"),
+    password: pick(row, ["password", "kata_laluan", "katalaluan"], "dkm2"),
     name: pick(row, ["name", "nama", "nama_pelajar"], id),
     program: pick(row, ["program", "kursus"], "Diploma Kejuruteraan Mekanikal"),
     company: pick(row, ["company", "syarikat", "nama_syarikat"], "-"),

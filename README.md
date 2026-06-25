@@ -32,7 +32,7 @@ Pelajar:
 
 ```text
 Login: DKM03020001
-Password: Dkm2026
+Password: dkm2
 ```
 
 ## Supabase
