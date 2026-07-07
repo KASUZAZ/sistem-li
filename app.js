@@ -228,7 +228,7 @@ async function uploadDataUrl(bucket, prefix, dataUrl) {
     body: blob
   });
   const data = await upload.json().catch(() => null);
-  if (!upload.ok) throw new Error(data?.message || "Gagal upload gambar.");
+  if (!upload.ok) throw new Error(data?.message || "Gagal upload fail.");
   return `${SUPABASE_URL}/storage/v1/object/public/${bucket}/${filePath}`;
 }
 
@@ -447,9 +447,43 @@ function fileToDataUrl(file) {
     if (!file) return resolve("");
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result);
-    reader.onerror = () => reject(new Error("Gagal membaca gambar."));
+    reader.onerror = () => reject(new Error("Gagal membaca fail."));
     reader.readAsDataURL(file);
   });
+}
+
+function isImageAttachment(url = "") {
+  if (!url) return false;
+  if (url.startsWith("data:image/")) return true;
+  return /\.(png|jpe?g|gif|webp|bmp|svg)(\?|#|$)/i.test(url);
+}
+
+function attachmentName(url = "") {
+  if (!url) return "Lampiran report";
+  try {
+    const pathname = new URL(url, location.origin).pathname;
+    const name = decodeURIComponent(pathname.split("/").filter(Boolean).pop() || "");
+    return name || "Lampiran report";
+  } catch {
+    return "Lampiran report";
+  }
+}
+
+function attachmentHtml(url, week) {
+  if (!url) return "";
+  if (isImageAttachment(url)) {
+    return `<img class="activity-photo" src="${url}" alt="Lampiran gambar minggu ${week}">`;
+  }
+  return `
+    <div class="report-attachment">
+      <span class="attachment-icon">FILE</span>
+      <div>
+        <strong>Lampiran Report</strong>
+        <span>${attachmentName(url)}</span>
+      </div>
+      <a class="btn-small" href="${url}" target="_blank" rel="noopener">Buka fail</a>
+    </div>
+  `;
 }
 
 function fmtDate(value) {
@@ -901,8 +935,8 @@ async function initLogForm() {
     const msg = qs("#formMsg");
     msg.hidden = true;
 
-    const imageInput = qs("#activityImage");
-    const activityImage = imageInput ? await fileToDataUrl(imageInput.files[0]) : "";
+    const fileInput = qs("#activityFile") || qs("#activityImage");
+    const activityImage = fileInput ? await fileToDataUrl(fileInput.files[0]) : "";
     await api(`/api/students/${encodeURIComponent(current.id)}/logs`, {
       method: "POST",
       body: JSON.stringify({
@@ -948,7 +982,7 @@ function reportItemHtml(item, period, canApprove = false) {
           ${canApprove && item.status !== "approved" ? `<button class="btn approve-btn" type="button" data-week="${item.week}">Sahkan</button>` : ""}
         </div>
       </div>
-      ${item.activityImage ? `<img class="activity-photo" src="${item.activityImage}" alt="Gambar aktiviti minggu ${item.week}">` : ""}
+      ${attachmentHtml(item.activityImage, item.week)}
     </article>
   `;
 }

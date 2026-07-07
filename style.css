@@ -123,6 +123,11 @@ a {
   font-weight: 700;
 }
 
+.field-hint {
+  color: #697589;
+  font-size: 0.82rem;
+}
+
 input,
 textarea,
 select {
@@ -521,6 +526,46 @@ th {
   object-fit: cover;
   border-radius: 6px;
   border: 1px solid var(--line);
+}
+
+.report-attachment {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-self: start;
+  background: #f8fafc;
+}
+
+.report-attachment .attachment-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: #e7eef8;
+  color: #1f4f8a;
+  display: grid;
+  place-items: center;
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+.report-attachment strong,
+.report-attachment span {
+  display: block;
+}
+
+.report-attachment span {
+  margin-top: 3px;
+  color: #697589;
+  font-size: 0.82rem;
+  word-break: break-word;
+}
+
+.report-attachment .btn-small {
+  grid-column: 1 / -1;
+  justify-self: start;
 }
 
 .signature-panel {
