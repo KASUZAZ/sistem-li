@@ -161,8 +161,8 @@ function studentFromCsvRow(row) {
     address: pick(row, ["address", "alamat", "alamat_syarikat"], "-"),
     industrySupervisor: pick(row, ["industrysupervisor", "penyelia_industri", "penyeliaindustri"], "-"),
     universitySupervisor: pick(row, ["universitysupervisor", "penyelia_universiti", "penyeliauniversiti"], "IZAH BINTI MD JEDI"),
-    startDate: pick(row, ["startdate", "tarikh_mula", "tarikhmula"], "2025-06-02"),
-    endDate: pick(row, ["enddate", "tarikh_akhir", "tarikhakhir"], "2025-11-14"),
+    startDate: pick(row, ["startdate", "tarikh_mula", "tarikhmula"], "2026-06-02"),
+    endDate: pick(row, ["enddate", "tarikh_akhir", "tarikhakhir"], "2026-11-14"),
     photo: "",
     logs: [],
     signature: {

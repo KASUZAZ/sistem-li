@@ -60,14 +60,14 @@ on conflict (login) do update set
 insert into public.students
   (id, password, name, program, company, address, industry_supervisor, university_supervisor, start_date, end_date)
 values
-  ('DKM03020001', 'dkm2', 'Ahmad Farhan', 'Diploma Kejuruteraan Mekanikal', 'Tech Solutions Sdn. Bhd.', 'Cyberjaya, Selangor', 'En. Rizal Hamdan', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14'),
-  ('DKM03020305', 'dkm2', 'Nurul Aina', 'Diploma Kejuruteraan Mekanikal', 'Maju Industri Sdn. Bhd.', 'Shah Alam, Selangor', 'Pn. Laila Karim', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14'),
-  ('DKM03020062', 'dkm2', 'Farhana Izzati', 'Diploma Kejuruteraan Mekanikal', 'Inovasi Teknik Sdn. Bhd.', 'Klang, Selangor', 'En. Hafiz Rahman', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14'),
-  ('DKM03020045', 'dkm2', 'Afeeq Haikal', 'Diploma Kejuruteraan Mekanikal', 'Prima Mekanik Sdn. Bhd.', 'Bangi, Selangor', 'En. Faizal Rahim', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14'),
-  ('DKM03020068', 'dkm2', 'Danial Iskandar', 'Diploma Kejuruteraan Mekanikal', 'Mega Auto Engineering', 'Seremban, Negeri Sembilan', 'En. Amir Hakim', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14'),
-  ('DKM03020082', 'dkm2', 'Mohd Amin', 'Diploma Kejuruteraan Mekanikal', 'Kejuruteraan Maju Jaya', 'Melaka Tengah, Melaka', 'En. Zulkifli Hassan', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14'),
-  ('DKM03040036', 'dkm2', 'Ismail Fizi', 'Diploma Kejuruteraan Mekanikal', 'Industri Teknologi Utara', 'Ipoh, Perak', 'En. Khairul Nizam', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14'),
-  ('DKM03040055', 'dkm2', 'Athirah Shiela', 'Diploma Kejuruteraan Mekanikal', 'Dynamic Fabrication Sdn. Bhd.', 'Nilai, Negeri Sembilan', 'Pn. Siti Mariam', 'IZAH BINTI MD JEDI', '2025-06-02', '2025-11-14')
+  ('DKM03020001', 'dkm2', 'Ahmad Farhan', 'Diploma Kejuruteraan Mekanikal', 'Tech Solutions Sdn. Bhd.', 'Cyberjaya, Selangor', 'En. Rizal Hamdan', 'IZAH BINTI MD JEDI', '2026-06-02', '2026-11-14'),
+  ('DKM03020305', 'dkm2', 'Nurul Aina', 'Diploma Kejuruteraan Mekanikal', 'Maju Industri Sdn. Bhd.', 'Shah Alam, Selangor', 'Pn. Laila Karim', 'IZAH BINTI MD JEDI', '2026-06-02', '2026-11-14'),
+  ('DKM03020062', 'dkm2', 'Farhana Izzati', 'Diploma Kejuruteraan Mekanikal', 'Inovasi Teknik Sdn. Bhd.', 'Klang, Selangor', 'En. Hafiz Rahman', 'IZAH BINTI MD JEDI', '2026-06-02', '2026-11-14'),
+  ('DKM03020045', 'dkm2', 'Afeeq Haikal', 'Diploma Kejuruteraan Mekanikal', 'Prima Mekanik Sdn. Bhd.', 'Bangi, Selangor', 'En. Faizal Rahim', 'IZAH BINTI MD JEDI', '2026-06-02', '2026-11-14'),
+  ('DKM03020068', 'dkm2', 'Danial Iskandar', 'Diploma Kejuruteraan Mekanikal', 'Mega Auto Engineering', 'Seremban, Negeri Sembilan', 'En. Amir Hakim', 'IZAH BINTI MD JEDI', '2026-06-02', '2026-11-14'),
+  ('DKM03020082', 'dkm2', 'Mohd Amin', 'Diploma Kejuruteraan Mekanikal', 'Kejuruteraan Maju Jaya', 'Melaka Tengah, Melaka', 'En. Zulkifli Hassan', 'IZAH BINTI MD JEDI', '2026-06-02', '2026-11-14'),
+  ('DKM03040036', 'dkm2', 'Ismail Fizi', 'Diploma Kejuruteraan Mekanikal', 'Industri Teknologi Utara', 'Ipoh, Perak', 'En. Khairul Nizam', 'IZAH BINTI MD JEDI', '2026-06-02', '2026-11-14'),
+  ('DKM03040055', 'dkm2', 'Athirah Shiela', 'Diploma Kejuruteraan Mekanikal', 'Dynamic Fabrication Sdn. Bhd.', 'Nilai, Negeri Sembilan', 'Pn. Siti Mariam', 'IZAH BINTI MD JEDI', '2026-06-02', '2026-11-14')
 on conflict (id) do update set
   password = excluded.password,
   name = excluded.name,
@@ -83,17 +83,17 @@ on conflict (id) do update set
 insert into public.weekly_logs
   (student_id, week, start_date, end_date, activity, learning, status, approved_by, approved_at)
 values
-  ('DKM03020001', 1, '2025-01-06', '2025-01-10', 'Orientasi syarikat dan pengenalan tugasan latihan industri', 'Memahami peraturan dan struktur organisasi.', 'approved', '', null),
-  ('DKM03020001', 2, '2025-01-13', '2025-01-17', 'Membantu kemaskini dokumen dan fail projek', 'Meningkatkan kemahiran pengurusan dokumen.', 'approved', '', null),
-  ('DKM03020001', 3, '2025-01-20', '2025-01-24', 'Membuat semakan keperluan sistem', 'Belajar mengenal pasti masalah pengguna.', 'approved', '', null),
-  ('DKM03020001', 4, '2025-01-27', '2025-01-31', 'Menyediakan rekod awal dan dokumentasi teknikal', 'Belajar menyusun dokumentasi projek.', 'approved', '', null),
-  ('DKM03020001', 5, '2025-02-03', '2025-02-07', 'Membantu kerja sokongan sistem dalaman', 'Memahami aliran kerja sokongan teknikal.', 'approved', 'IZAH BINTI MD JEDI', '2026-06-25T14:01:25.649Z'),
-  ('DKM03020001', 6, '2025-01-27', '2025-01-31', 'Rekabentuk pangkalan data', 'Memahami hubungan data untuk sistem latihan industri.', 'approved', '', null),
-  ('DKM03020001', 7, '2025-02-03', '2025-02-07', 'Ujian API integrasi sistem', 'Belajar menguji aliran data dari frontend ke backend.', 'approved', '', null),
-  ('DKM03020001', 8, '2025-02-10', '2025-02-14', 'Pembangunan modul laporan PDF', 'Menyusun laporan mingguan untuk semakan.', 'pending', '', null),
-  ('DKM03020305', 1, '2025-06-02', '2025-06-06', 'Orientasi syarikat dan pengenalan prosedur kerja.', 'Memahami peraturan keselamatan dan struktur organisasi.', 'approved', '', null),
-  ('DKM03020305', 2, '2025-06-09', '2025-06-13', 'Membantu kemas kini rekod inventori dan semakan dokumen teknikal.', 'Meningkatkan ketelitian semasa mengurus dokumen operasi.', 'pending', '', null),
-  ('DKM03020062', 1, '2025-06-02', '2025-06-06', 'Pengenalan kepada mesin dan rekod penyelenggaraan.', 'Mengenal pasti dokumen pemeriksaan berkala.', 'approved', '', null)
+  ('DKM03020001', 1, '2026-01-06', '2026-01-10', 'Orientasi syarikat dan pengenalan tugasan latihan industri', 'Memahami peraturan dan struktur organisasi.', 'approved', '', null),
+  ('DKM03020001', 2, '2026-01-13', '2026-01-17', 'Membantu kemaskini dokumen dan fail projek', 'Meningkatkan kemahiran pengurusan dokumen.', 'approved', '', null),
+  ('DKM03020001', 3, '2026-01-20', '2026-01-24', 'Membuat semakan keperluan sistem', 'Belajar mengenal pasti masalah pengguna.', 'approved', '', null),
+  ('DKM03020001', 4, '2026-01-27', '2026-01-31', 'Menyediakan rekod awal dan dokumentasi teknikal', 'Belajar menyusun dokumentasi projek.', 'approved', '', null),
+  ('DKM03020001', 5, '2026-02-03', '2026-02-07', 'Membantu kerja sokongan sistem dalaman', 'Memahami aliran kerja sokongan teknikal.', 'approved', 'IZAH BINTI MD JEDI', '2026-06-25T14:01:25.649Z'),
+  ('DKM03020001', 6, '2026-01-27', '2026-01-31', 'Rekabentuk pangkalan data', 'Memahami hubungan data untuk sistem latihan industri.', 'approved', '', null),
+  ('DKM03020001', 7, '2026-02-03', '2026-02-07', 'Ujian API integrasi sistem', 'Belajar menguji aliran data dari frontend ke backend.', 'approved', '', null),
+  ('DKM03020001', 8, '2026-02-10', '2026-02-14', 'Pembangunan modul laporan PDF', 'Menyusun laporan mingguan untuk semakan.', 'pending', '', null),
+  ('DKM03020305', 1, '2026-06-02', '2026-06-06', 'Orientasi syarikat dan pengenalan prosedur kerja.', 'Memahami peraturan keselamatan dan struktur organisasi.', 'approved', '', null),
+  ('DKM03020305', 2, '2026-06-09', '2026-06-13', 'Membantu kemas kini rekod inventori dan semakan dokumen teknikal.', 'Meningkatkan ketelitian semasa mengurus dokumen operasi.', 'pending', '', null),
+  ('DKM03020062', 1, '2026-06-02', '2026-06-06', 'Pengenalan kepada mesin dan rekod penyelenggaraan.', 'Mengenal pasti dokumen pemeriksaan berkala.', 'approved', '', null)
 on conflict (student_id, week) do update set
   start_date = excluded.start_date,
   end_date = excluded.end_date,

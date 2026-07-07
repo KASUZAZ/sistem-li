@@ -81,8 +81,8 @@ function toDbStudent(student) {
     address: student.address || "-",
     industry_supervisor: student.industrySupervisor || "-",
     university_supervisor: student.universitySupervisor || "IZAH BINTI MD JEDI",
-    start_date: student.startDate || "2025-06-02",
-    end_date: student.endDate || "2025-11-14"
+    start_date: student.startDate || "2026-06-02",
+    end_date: student.endDate || "2026-11-14"
   };
 }
 
@@ -208,8 +208,8 @@ function studentFromCsvRow(row) {
     address: pick(row, ["address", "alamat", "alamat_syarikat"], "-"),
     industrySupervisor: pick(row, ["industrysupervisor", "penyelia_industri", "penyeliaindustri"], "-"),
     universitySupervisor: pick(row, ["universitysupervisor", "penyelia_universiti", "penyeliauniversiti"], "IZAH BINTI MD JEDI"),
-    startDate: pick(row, ["startdate", "tarikh_mula", "tarikhmula"], "2025-06-02"),
-    endDate: pick(row, ["enddate", "tarikh_akhir", "tarikhakhir"], "2025-11-14")
+    startDate: pick(row, ["startdate", "tarikh_mula", "tarikhmula"], "2026-06-02"),
+    endDate: pick(row, ["enddate", "tarikh_akhir", "tarikhakhir"], "2026-11-14")
   };
 }
 
@@ -875,7 +875,7 @@ function renderToolDetail(tool, students, isAdmin) {
     settings: () => `
       <div class="box-header"><h2>Tetapan Sistem</h2><span class="badge-info">Konfigurasi</span></div>
       <div class="tool-summary-grid">
-        <div class="mini-panel"><strong>Tempoh LI</strong><span>Jun - Nov 2025</span></div>
+        <div class="mini-panel"><strong>Tempoh LI</strong><span>Jun - Nov 2026</span></div>
         <div class="mini-panel"><strong>Akaun Admin</strong><span>admin</span></div>
         <div class="mini-panel"><strong>Akaun Penyelia</strong><span>Izah@micost.edu.my</span></div>
         <div class="mini-panel"><strong>Mode Report</strong><span>Mingguan / Bulanan</span></div>
