@@ -749,7 +749,6 @@ function renderAdminTools(isAdmin, students) {
     ["📋", "Semak Semua Report", "Pantau laporan mingguan semua pelajar."],
     ["✅", "Pengesahan Pukal", "Semak status log yang belum disahkan."],
     ["📊", "Analitik LI", "Ringkasan prestasi latihan industri."],
-    ["📁", "Export Data", "Sediakan rekod untuk simpanan pentadbiran."],
     ["⚙️", "Tetapan Sistem", "Konfigurasi akaun, tempoh LI dan akses."]
   ];
 
@@ -790,7 +789,6 @@ function toolIdFromTitle(title) {
     "Semak Semua Report": "reports",
     "Pengesahan Pukal": "bulk-approval",
     "Analitik LI": "analytics",
-    "Export Data": "export",
     "Tetapan Sistem": "settings",
     "Semak Report": "reports",
     "Sahkan Log": "bulk-approval",
@@ -867,11 +865,6 @@ function renderToolDetail(tool, students, isAdmin) {
         </div>
       `;
     },
-    export: () => `
-      <div class="box-header"><h2>Export Data</h2><span class="badge-info">Rekod pentadbiran</span></div>
-      <div class="tool-actions"><button class="btn primary" type="button">Export Senarai Pelajar</button><button class="btn secondary" type="button">Export Report Mingguan</button><button class="btn secondary" type="button">Export Status Pengesahan</button></div>
-      <p class="tool-note">Data tersedia untuk dijadikan CSV/PDF apabila fungsi export sebenar disambungkan.</p>
-    `,
     settings: () => `
       <div class="box-header"><h2>Tetapan Sistem</h2><span class="badge-info">Konfigurasi</span></div>
       <div class="tool-summary-grid">
