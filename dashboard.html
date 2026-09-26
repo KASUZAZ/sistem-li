@@ -1,170 +1,24 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Sistem LI</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buku Log Digital - Sistem LI</title><link rel="stylesheet" href="style.css">
 </head>
 <body class="app-page" data-page="student-dashboard">
-  <div class="layout student-layout">
+  <div class="layout">
     <aside class="sidebar">
-      <div class="sidebar-title">Sistem LI</div>
-      <nav>
-        <a href="dashboard.html" class="active">Dashboard</a>
-        <a href="log.html">Log Mingguan</a>
-        <a href="laporan.html">Laporan</a>
-        <a href="#syarikat-panel" data-student-panel="company">Syarikat</a>
-        <a href="#penyelia-panel" data-student-panel="supervisor">Penyelia</a>
-      </nav>
-      <button class="logout" data-logout>Log Keluar</button>
+      <div class="brand-lockup"><span class="brand-symbol">LI</span><div><strong>Buku Log</strong><small>Latihan Industri</small></div></div>
+      <div class="sidebar-profile"><img id="sidePhoto" src="" alt=""><div><strong id="sideName">Pelajar</strong><small id="sideId">-</small></div></div>
+      <nav><a class="active" href="dashboard.html"><span>⌂</span> Ringkasan</a><a href="log.html"><span>✎</span> Catatan harian</a><a href="laporan.html"><span>▤</span> Laporan & penilaian</a><a href="#placement"><span>⌾</span> Penempatan</a></nav>
+      <div class="sidebar-foot"><span class="online-dot"></span> Data disimpan automatik<button class="logout" data-logout>Log keluar</button></div>
     </aside>
-
-    <main class="content student-content">
-      <header class="topbar student-topbar">
-        <h1 id="welcomeName">Selamat Datang, Ahmad Farhan</h1>
-        <span class="badge-info" id="trainingRange">Jun - Nov 2026</span>
-      </header>
-
-      <section class="box student-box student-profile-box">
-        <img id="studentPhoto" class="passport-photo" alt="Gambar passport pelajar">
-        <div class="profile-info">
-          <h2>Profil Pelajar</h2>
-          <div class="info-grid compact">
-            <div class="info-item">
-              <span class="info-label">Nama</span>
-              <span id="studentName">Ahmad Farhan</span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">No. Matrik</span>
-              <span id="studentId">DKM03020001</span>
-            </div>
-          </div>
-        </div>
-        <label class="upload-btn passport-upload">
-          Upload Gambar Passport
-          <input id="photoInput" type="file" accept="image/*">
-        </label>
-      </section>
-
-      <section class="cards student-cards">
-        <div class="card stat-card">
-          <span class="card-icon">📅</span>
-          <span class="card-label">Minggu Berlalu</span>
-          <span class="card-value" id="weekProgress">8 / 24</span>
-        </div>
-        <div class="card stat-card">
-          <span class="card-icon">📋</span>
-          <span class="card-label">Log Dihantar</span>
-          <span class="card-value" id="logCount">8</span>
-        </div>
-        <div class="card stat-card">
-          <span class="card-icon">✅</span>
-          <span class="card-label">Log Disahkan</span>
-          <span class="card-value" id="approvedCount">6</span>
-        </div>
-        <div class="card stat-card">
-          <span class="card-icon">⭐</span>
-          <span class="card-label">Markah Semasa</span>
-          <span class="card-value">82%</span>
-        </div>
-      </section>
-
-      <section class="box student-box">
-        <div class="box-header">
-          <h2>Log Mingguan Terkini</h2>
-          <a href="log.html" class="btn primary">+ Tambah Log</a>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Minggu</th>
-                <th>Tarikh</th>
-                <th>Aktiviti</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="studentLogs"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <section class="box student-box placement-box">
-        <h2>Maklumat Penempatan</h2>
-        <div class="info-grid">
-          <div class="info-item">
-            <span class="info-label">Syarikat</span>
-            <span id="companyName">Tech Solutions Sdn. Bhd.</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">Alamat</span>
-            <span id="companyAddress">Cyberjaya, Selangor</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">Penyelia Industri</span>
-            <span id="industrySupervisor">En. Rizal Hamdan</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">Penyelia Universiti</span>
-            <span id="universitySupervisor">IZAH BINTI MD JEDI</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="box student-box student-detail-panel" id="syarikat-panel" hidden>
-        <div class="box-header">
-          <h2>Paparan Syarikat</h2>
-          <span class="badge-info">Maklumat Industri</span>
-        </div>
-        <div class="detail-grid">
-          <div class="mini-panel">
-            <strong>Nama Syarikat</strong>
-            <span id="companyPanelName">Tech Solutions Sdn. Bhd.</span>
-          </div>
-          <div class="mini-panel">
-            <strong>Alamat</strong>
-            <span id="companyPanelAddress">Cyberjaya, Selangor</span>
-          </div>
-          <div class="mini-panel">
-            <strong>Penyelia Industri</strong>
-            <span id="companyPanelSupervisor">En. Rizal Hamdan</span>
-          </div>
-          <div class="mini-panel">
-            <strong>Tempoh LI</strong>
-            <span id="companyPanelPeriod">Jun - Nov 2026</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="box student-box student-detail-panel" id="penyelia-panel" hidden>
-        <div class="box-header">
-          <h2>Paparan Penyelia</h2>
-          <span class="badge-info">Universiti & Industri</span>
-        </div>
-        <div class="detail-grid">
-          <div class="mini-panel">
-            <strong>Penyelia Universiti</strong>
-            <span id="supervisorPanelUniversity">IZAH BINTI MD JEDI</span>
-            <span>Izah@micost.edu.my</span>
-          </div>
-          <div class="mini-panel">
-            <strong>Penyelia Industri</strong>
-            <span id="supervisorPanelIndustry">En. Rizal Hamdan</span>
-            <span id="supervisorPanelCompany">Tech Solutions Sdn. Bhd.</span>
-          </div>
-          <div class="mini-panel">
-            <strong>Status Pengesahan</strong>
-            <span id="supervisorPanelSign">Belum sign</span>
-          </div>
-          <div class="mini-panel">
-            <strong>Report Disahkan</strong>
-            <span id="supervisorPanelApproved">0 log</span>
-          </div>
-        </div>
-      </section>
+    <main class="content">
+      <header class="topbar hero-topbar"><div><p class="eyebrow">PORTAL PELAJAR</p><h1 id="welcomeName">Selamat datang</h1><p class="subtle" id="welcomeSub">Lengkapkan buku log anda setiap hari.</p></div><div class="topbar-actions"><span class="date-chip" id="todayLabel"></span><a href="log.html" class="btn primary">+ Catat hari ini</a></div></header>
+      <section class="progress-banner"><div><span class="eyebrow light">PROGRESS LATIHAN INDUSTRI</span><strong id="progressTitle">0% lengkap</strong><p id="progressMeta">0 daripada 0 hari direkodkan</p></div><div class="progress-ring" id="progressRing"><span id="progressPercent">0%</span></div></section>
+      <section class="cards overview-cards"><div class="metric-card"><span class="metric-icon blue">▣</span><div><small>Hari latihan</small><strong id="daysRecorded">0 / 0</strong><span id="daysHint">Belum direkod</span></div></div><div class="metric-card"><span class="metric-icon green">✓</span><div><small>Kehadiran</small><strong id="attendanceRate">0%</strong><span id="attendanceHint">Belum ada rekod</span></div></div><div class="metric-card"><span class="metric-icon amber">◷</span><div><small>Menunggu semakan</small><strong id="pendingCount">0</strong><span>Perlu perhatian penyelia</span></div></div><div class="metric-card"><span class="metric-icon purple">★</span><div><small>Markah semasa</small><strong id="currentScore">—</strong><span>Skema A–D</span></div></div></section>
+      <div class="dashboard-grid"><section class="box calendar-box"><div class="box-header"><div><p class="eyebrow">KEHADIRAN</p><h2>Jejak kehadiran latihan</h2></div><select id="monthSelect" class="month-select"></select></div><div class="legend"><span><i class="legend-dot present"></i> Hadir</span><span><i class="legend-dot leave"></i> Cuti / MC</span><span><i class="legend-dot missing"></i> Belum diisi</span></div><div id="attendanceCalendar" class="attendance-calendar"></div><p class="calendar-note">Setiap hari dalam tempoh latihan mesti diisi. Jika cuti atau tidak hadir, pilih status dan masukkan sebab.</p></section><section class="box next-box"><div class="box-header"><div><p class="eyebrow">TINDAKAN SETERUSNYA</p><h2>Perlu diselesaikan</h2></div></div><div id="actionList" class="action-list"></div><a class="text-link" href="log.html">Buka buku log penuh →</a></section></div>
+      <section class="box recent-box"><div class="box-header"><div><p class="eyebrow">CATATAN TERKINI</p><h2>Aktiviti yang telah direkodkan</h2></div><a href="log.html" class="btn secondary">Lihat semua</a></div><div id="recentLogs" class="recent-list"></div></section>
+      <section class="box placement-box" id="placement"><div class="box-header"><div><p class="eyebrow">A-1 & A-2</p><h2>Maklumat pelatih & penempatan</h2></div><span class="status-pill success">Profil lengkap</span></div><div class="detail-grid" id="placementDetails"></div></section>
     </main>
-  </div>
-  <script src="app.js"></script>
-</body>
-</html>
+  </div><script src="app.js"></script>
+</body></html>

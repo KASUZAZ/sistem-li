@@ -254,6 +254,19 @@ async function supabaseApi(path, options = {}) {
     return { role: "student", id: students[0].id, redirect: "dashboard.html" };
   }
 
+  if (method === "POST" && url.pathname === "/api/register") {
+    const required = ["id", "password", "name", "program", "company", "address", "industrySupervisor", "startDate", "endDate"];
+    if (required.some(key => !String(body[key] || "").trim())) throw new Error("Sila lengkapkan semua maklumat wajib.");
+    if (String(body.password).length < 6) throw new Error("Kata laluan mesti sekurang-kurangnya 6 aksara.");
+    if (body.password !== body.confirmPassword) throw new Error("Sahkan kata laluan dengan betul.");
+    if (body.endDate < body.startDate) throw new Error("Tarikh tamat mesti selepas tarikh mula.");
+    const existing = await sbRequest(`/rest/v1/students?select=id&id=eq.${encodeURIComponent(body.id)}&limit=1`);
+    if (existing.length) throw new Error("No. matrik ini sudah berdaftar.");
+    await sbRequest("/rest/v1/students", { method: "POST", headers: { "Content-Type": "application/json", Prefer: "return=minimal" }, body: JSON.stringify({ id: body.id.toUpperCase(), password: body.password, name: body.name, program: body.program, company: body.company, address: body.address, industry_supervisor: body.industrySupervisor, university_supervisor: "IZAH BINTI MD JEDI", start_date: body.startDate, end_date: body.endDate }) });
+    await sbRequest("/rest/v1/signatures", { method: "POST", headers: { "Content-Type": "application/json", Prefer: "return=minimal" }, body: JSON.stringify({ student_id: body.id.toUpperCase(), supervisor_name: "", note: "", signed_at: null }) });
+    return { role: "student", id: body.id.toUpperCase(), redirect: "dashboard.html" };
+  }
+
   if (method === "GET" && url.pathname === "/api/students") {
     return fetchStudentsFromSupabase();
   }
@@ -1109,12 +1122,87 @@ async function initMyReport() {
   await renderReport(current.id, "weekly", false);
 }
 
-initLogout();
-initLogin();
+function dailyKey(id) { return `eliDailyLogs:${id}`; }
+function readDaily(id) { try { return JSON.parse(localStorage.getItem(dailyKey(id)) || "[]"); } catch { return []; } }
+function writeDaily(id, logs) { localStorage.setItem(dailyKey(id), JSON.stringify(logs)); }
+function isoDate(date) { return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 10); }
+function dateRange(start, end) { const out = []; const cursor = new Date(`${start}T00:00:00`); const last = new Date(`${end}T00:00:00`); while (cursor <= last) { out.push(isoDate(cursor)); cursor.setDate(cursor.getDate() + 1); } return out; }
+function prettyDate(value, options = { day: "numeric", month: "short", year: "numeric" }) { return new Intl.DateTimeFormat("ms-MY", options).format(new Date(`${value}T00:00:00`)); }
+function monthName(key) { return new Intl.DateTimeFormat("ms-MY", { month: "long", year: "numeric" }).format(new Date(`${key}-01T00:00:00`)); }
+function studentPeriod(student) { return dateRange(student.startDate, student.endDate); }
+function mergeEntries(student) { return readDaily(student.id); }
+function sideIdentity(student) { qsa("#sideName").forEach(el => el.textContent = student.name); qsa("#sideId").forEach(el => el.textContent = student.id); qsa("#sidePhoto").forEach(el => el.src = student.photo || DEFAULT_PHOTO); }
+function progressFor(student) { const days = studentPeriod(student); const entries = mergeEntries(student); const logged = new Set(entries.map(item => item.date)); return { total: days.length, logged: days.filter(day => logged.has(day)).length, entries, days }; }
+function monthKeys(student) { return [...new Set(studentPeriod(student).map(day => day.slice(0, 7)))]; }
 
+function initRegister() {
+  const form = qs("#registerForm"); if (!form) return;
+  const programInput = qs("#registerProgram");
+  if (programInput) {
+    const groups = {
+      "Fakulti Teknologi Maklumat & Multimedia": [
+        "Diploma in Computer Science", "Diploma in Open Source Computing", "Diploma in Digital Animation", "Diploma in Interactive Media", "Diploma in Graphic Design", "Diploma in Game Design", "Bachelor of Information & Communication Technology (Hons)", "Bachelor of Digital Creative Media (Hons)"
+      ],
+      "MiCoSTSkills (Program TVET & Kemahiran)": [
+        "SKM - Operasi Sistem Komputer", "DKM - Pentadbiran Sistem Komputer"
+      ],
+      "Fakulti Pengurusan Perniagaan": [
+        "Pra Diploma Perdagangan (Usahasama UiTM)", "Diploma In Business Studies (Usahasama UiTM)", "Diploma Pengajian Perniagaan", "Diploma Pengurusan Sumber Manusia", "Diploma Pengurusan Pejabat", "Diploma Pengurusan Pentadbiran / Pentadbiran Awam", "Diploma Perakaunan", "Diploma Kewangan Islam", "Bachelor of Business Administration (Hons)"
+      ],
+      "Fakulti Sains Kesihatan & Pendidikan": [
+        "Pra Diploma Sains (Usahasama UiTM)", "Diploma Sains (Usahasama UiTM)", "Diploma Farmasi", "Diploma Pendidikan Awal Kanak-Kanak", "Diploma Keselamatan & Kesihatan Pekerjaan / Occupational Safety & Health (Usahasama UoC)", "Diploma Psikologi (Usahasama UoC)"
+      ],
+      "Pengajian Pascasiswazah (Postgraduate)": [
+        "Doctor of Business Administration (DBA)", "Master of Science (MSc) Management by Research", "Master in Education (MEd)"
+      ]
+    };
+    const select = document.createElement("select"); select.id = "registerProgram"; select.name = "program"; select.required = true;
+    select.innerHTML = `<option value="" selected disabled>Pilih program / kursus</option>` + Object.entries(groups).map(([label, options]) => `<optgroup label="${label}">${options.map(option => `<option value="${option}">${option}</option>`).join("")}</optgroup>`).join("");
+    programInput.replaceWith(select);
+  }
+  const start = qs("#registerStart"); const end = qs("#registerEnd"); const today = isoDate(new Date());
+  start.value = start.value || today; end.value = end.value || isoDate(new Date(new Date().setMonth(new Date().getMonth() + 4)));
+  form.addEventListener("submit", async event => {
+    event.preventDefault(); const error = qs("#registerMsg"); const success = qs("#registerSuccess"); error.hidden = true; success.hidden = true;
+    const payload = { id: qs("#registerMatrik").value.trim().toUpperCase(), name: qs("#registerName").value.trim(), password: qs("#registerPassword").value, confirmPassword: qs("#registerConfirm").value, program: qs("#registerProgram").value.trim(), company: qs("#registerCompany").value.trim(), address: qs("#registerAddress").value.trim(), industrySupervisor: qs("#registerIndustrySupervisor").value.trim(), supervisorPhone: qs("#registerSupervisorPhone").value.trim(), startDate: start.value, endDate: end.value };
+    try { const result = await api("/api/register", { method: "POST", body: JSON.stringify(payload) }); saveSession({ role: result.role, id: result.id }); success.textContent = "Pendaftaran berjaya. Membuka dashboard..."; success.hidden = false; setTimeout(() => { location.href = result.redirect; }, 650); } catch (err) { error.textContent = err.message || "Pendaftaran tidak berjaya."; error.hidden = false; }
+  });
+}
+
+async function loadCurrentStudent() { const current = requireRole("student"); if (!current) return null; return api(`/api/students/${encodeURIComponent(current.id)}`); }
+
+function renderCalendar(student, selectedMonth) {
+  const mount = qs("#attendanceCalendar"); if (!mount) return;
+  const { entries } = progressFor(student); const byDate = new Map(entries.map(entry => [entry.date, entry]));
+  const days = studentPeriod(student).filter(day => day.startsWith(selectedMonth)); const first = new Date(`${days[0]}T00:00:00`).getDay();
+  const offset = (first + 6) % 7; const names = ["Isn", "Sel", "Rab", "Kha", "Jum", "Sab", "Aha"];
+  mount.innerHTML = names.map(name => `<div class="day-name">${name}</div>`).join("") + Array.from({ length: offset }, () => `<div></div>`).join("") + days.map(day => { const entry = byDate.get(day); const status = entry?.attendance === "leave" ? "leave" : entry ? "present" : "missing"; return `<div class="day-cell ${status} ${day === isoDate(new Date()) ? "today" : ""}" title="${entry ? "Catatan telah diisi" : "Klik untuk isi catatan"}"><strong>${Number(day.slice(-2))}</strong><button data-calendar-date="${day}" aria-label="Buka catatan ${day}"></button></div>`; }).join("");
+  qsa("[data-calendar-date]", mount).forEach(button => button.addEventListener("click", () => { location.href = `log.html?date=${button.dataset.calendarDate}`; }));
+}
+
+async function initDigitalDashboard() {
+  const student = await loadCurrentStudent(); if (!student) return; sideIdentity(student); const info = progressFor(student); const rate = info.total ? Math.round(info.logged / info.total * 100) : 0;
+  qs("#welcomeName").textContent = `Selamat datang, ${student.name.split(" ")[0]}`; qs("#todayLabel").textContent = prettyDate(isoDate(new Date()), { day:"numeric", month:"long", year:"numeric" });
+  qs("#progressTitle").textContent = `${rate}% lengkap`; qs("#progressMeta").textContent = `${info.logged} daripada ${info.total} hari direkodkan`; qs("#progressPercent").textContent = `${rate}%`; qs("#progressRing").style.background = `conic-gradient(#fff ${rate * 3.6}deg,#ffffff32 0deg)`;
+  qs("#daysRecorded").textContent = `${info.logged} / ${info.total}`; qs("#daysHint").textContent = info.total - info.logged ? `${info.total - info.logged} hari belum diisi` : "Semua hari lengkap"; qs("#attendanceRate").textContent = `${Math.round(info.entries.filter(e => e.attendance !== "leave").length / Math.max(1, info.logged) * 100)}%`; qs("#attendanceHint").textContent = "Berdasarkan catatan harian"; qs("#pendingCount").textContent = info.entries.filter(e => e.status !== "approved").length; qs("#currentScore").textContent = student.logs.length ? "—" : "—";
+  const select = qs("#monthSelect"); const months = monthKeys(student); select.innerHTML = months.map(key => `<option value="${key}">${monthName(key)}</option>`).join(""); select.value = new Date().toISOString().slice(0, 7); if (!months.includes(select.value)) select.value = months[0]; renderCalendar(student, select.value); select.addEventListener("change", () => renderCalendar(student, select.value));
+  const missing = info.days.filter(day => !new Set(info.entries.map(e => e.date)).has(day)).slice(0, 3); qs("#actionList").innerHTML = missing.length ? missing.map(day => `<div class="action-item"><span class="action-mark">!</span><div><strong>Catatan ${prettyDate(day)}</strong><span>Hari ini masih belum diisi</span></div></div>`).join("") : `<div class="action-item"><span class="action-mark" style="background:#e8f7ef;color:#177849">✓</span><div><strong>Buku log lengkap</strong><span>Semua hari dalam tempoh latihan telah diisi.</span></div></div>`;
+  const recent = [...info.entries].sort((a,b) => b.date.localeCompare(a.date)).slice(0, 5); qs("#recentLogs").innerHTML = recent.length ? recent.map(entry => `<div class="recent-row"><span class="recent-date">${prettyDate(entry.date)}</span><div><strong>${entry.duty || "Aktiviti kerja"}</strong><p>${entry.activity}</p></div><span class="status-pill ${entry.status === "approved" ? "success" : "warning"}">${entry.status === "approved" ? "Disahkan" : "Menunggu"}</span></div>`).join("") : `<div class="empty-state">Belum ada catatan. Mulakan dengan mengisi rekod hari ini.</div>`;
+  qs("#placementDetails").innerHTML = [["Nama pelatih", student.name],["No. matrik",student.id],["Program",student.program],["Nama industri",student.company],["Alamat industri",student.address],["Penyelia industri",student.industrySupervisor],["Penyelia universiti",student.universitySupervisor],["Tempoh LI",`${prettyDate(student.startDate)} – ${prettyDate(student.endDate)}`]].map(([label,value]) => `<div class="mini-detail"><small>${label}</small><strong>${value || "—"}</strong></div>`).join("");
+}
+
+function renderLogSide(student) { const info = progressFor(student); const rate = info.total ? Math.round(info.logged / info.total * 100) : 0; qs("#logProgressValue").textContent = `${rate}%`; qs("#logProgressText").textContent = `${info.logged} / ${info.total} hari lengkap`; qs("#logProgressBar").style.width = `${rate}%`; const counts = new Map(); info.entries.forEach(e => counts.set(e.date.slice(0,7), (counts.get(e.date.slice(0,7)) || 0) + 1)); qs("#monthChecklist").innerHTML = monthKeys(student).map(key => { const total = info.days.filter(day => day.startsWith(key)).length; const done = counts.get(key) || 0; return `<div class="month-check"><strong>${monthName(key)}</strong><span>${done}/${total} hari</span></div>`; }).join(""); const filter = qs("#historyFilter"); filter.innerHTML = `<option value="all">Semua bulan</option>` + monthKeys(student).map(key => `<option value="${key}">${monthName(key)}</option>`).join(""); }
+
+function renderDailyHistory(student, filter = "all") { const entries = mergeEntries(student).filter(e => filter === "all" || e.date.startsWith(filter)).sort((a,b) => b.date.localeCompare(a.date)); qs("#dailyHistory").innerHTML = entries.length ? entries.map(entry => `<article class="history-item"><span class="recent-date">${prettyDate(entry.date)}</span><div><strong>${entry.duty || "Aktiviti kerja"}</strong><p>${entry.activity}${entry.learning ? ` · ${entry.learning}` : ""}</p></div><span class="status-pill ${entry.status === "approved" ? "success" : "warning"}">${entry.status === "approved" ? "Disahkan" : "Menunggu"}</span></article>`).join("") : `<div class="empty-state">Tiada catatan untuk pilihan ini.</div>`; }
+
+async function initDigitalLog() { const student = await loadCurrentStudent(); if (!student) return; sideIdentity(student); const params = new URLSearchParams(location.search); qs("#dailyDate").value = params.get("date") || isoDate(new Date()); renderLogSide(student); renderDailyHistory(student); qs("#historyFilter").addEventListener("change", e => renderDailyHistory(student, e.target.value)); qs("#clearDaily").addEventListener("click", () => qs("#dailyLogForm").reset()); const form = qs("#dailyLogForm"); form.addEventListener("submit", event => { event.preventDefault(); const date = qs("#dailyDate").value; const entries = mergeEntries(student).filter(item => item.date !== date); entries.push({ date, time: qs("#dailyTime").value, duty: qs("#dailyDuty").value.trim(), activity: qs("#dailyActivity").value.trim(), learning: qs("#dailyLearning").value.trim(), status: "pending", attendance: "present" }); writeDaily(student.id, entries.sort((a,b) => a.date.localeCompare(b.date))); const msg = qs("#dailyMsg"); msg.textContent = `Catatan ${prettyDate(date)} berjaya disimpan.`; msg.hidden = false; renderLogSide(student); renderDailyHistory(student); setTimeout(() => msg.hidden = true, 3500); }); const existing = mergeEntries(student).find(item => item.date === qs("#dailyDate").value); if (existing) { qs("#dailyTime").value = existing.time || ""; qs("#dailyDuty").value = existing.duty || ""; qs("#dailyActivity").value = existing.activity || ""; qs("#dailyLearning").value = existing.learning || ""; qs("#formTitle").textContent = "Kemas kini catatan harian"; qs("#requiredBadge").textContent = "Sudah diisi"; qs("#requiredBadge").className = "status-pill success"; } }
+
+async function initDigitalAdmin() { const current = requireRole(["admin", "supervisor"]); if (!current) return; const students = await api("/api/students"); const totalDays = students.reduce((sum,s) => sum + progressFor(s).total, 0); const allEntries = students.flatMap(s => progressFor(s).entries); qs("#adminStats").innerHTML = [["👥","Jumlah pelajar",students.length,"Dalam seliaan"],["✓","Catatan diterima",allEntries.length,"Rekod harian"],["◷","Menunggu semakan",allEntries.filter(e=>e.status!=="approved").length,"Perlu tindakan"],["▣","Kehadiran keseluruhan",`${totalDays ? Math.round(allEntries.length/totalDays*100) : 0}%`,"Daripada tempoh latihan"]].map(([icon,label,value,sub])=>`<div class="metric-card"><span class="metric-icon blue">${icon}</span><div><small>${label}</small><strong>${value}</strong><span>${sub}</span></div></div>`).join(""); qs("#adminTools").innerHTML = [["✓","Semak catatan harian","Lihat catatan yang masih menunggu pengesahan."],["▣","Pantau kehadiran","Kenal pasti hari yang belum direkodkan."],["★","Penilaian pelajar","Lengkapkan Skema B, C dan D."]].map(([icon,title,desc])=>`<button class="tool-card"><strong>${icon} &nbsp; ${title}</strong><span>${desc}</span></button>`).join(""); const render = (term="") => { const filtered = students.filter(s => `${s.name} ${s.id} ${s.company}`.toLowerCase().includes(term.toLowerCase())); qs("#studentList").innerHTML = filtered.map(s => { const info=progressFor(s); const pending=info.entries.filter(e=>e.status!=="approved").length; const rate=info.total?Math.round(info.logged/info.total*100):0; return `<tr><td><strong>${s.name}</strong><br><small>${s.id}</small></td><td>${s.company}</td><td><span class="status-pill ${rate===100?"success":"warning"}">${rate}% · ${info.logged}/${info.total} hari</span></td><td>${pending || "—"}</td><td><a class="btn-small" href="report.html?student=${encodeURIComponent(s.id)}&period=weekly">Buka</a></td></tr>`; }).join("") || `<tr><td colspan="5" class="empty-state">Tiada pelajar ditemui.</td></tr>`; }; qs("#studentSearch").addEventListener("input", e => render(e.target.value)); render(); }
+
+initLogout(); initLogin(); initRegister();
 const page = document.body.dataset.page;
-if (page === "student-dashboard") initStudentDashboard();
-if (page === "admin") initAdmin();
-if (page === "log") initLogForm();
+if (page === "student-dashboard") initDigitalDashboard();
+if (page === "admin") initDigitalAdmin();
+if (page === "log") initDigitalLog();
 if (page === "admin-report") initAdminReport();
 if (page === "my-report") initMyReport();

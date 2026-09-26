@@ -202,6 +202,20 @@ async function handleApi(req, res) {
     return send(res, 200, { role: "student", id: student.id, redirect: "dashboard.html" });
   }
 
+  if (req.method === "POST" && url.pathname === "/api/register") {
+    const body = await readBody(req);
+    const required = ["id", "password", "name", "program", "company", "address", "industrySupervisor", "startDate", "endDate"];
+    if (required.some(key => !String(body[key] || "").trim())) return send(res, 400, { message: "Sila lengkapkan semua maklumat wajib." });
+    if (String(body.password).length < 6) return send(res, 400, { message: "Kata laluan mesti sekurang-kurangnya 6 aksara." });
+    if (body.password !== body.confirmPassword) return send(res, 400, { message: "Sahkan kata laluan dengan betul." });
+    if (body.endDate < body.startDate) return send(res, 400, { message: "Tarikh tamat mesti selepas tarikh mula." });
+    const id = String(body.id).trim().toUpperCase();
+    if (students.some(item => item.id === id)) return send(res, 409, { message: "No. matrik ini sudah berdaftar." });
+    const student = { id, password: body.password, name: String(body.name).trim(), program: String(body.program).trim(), company: String(body.company).trim(), address: String(body.address).trim(), industrySupervisor: String(body.industrySupervisor).trim(), universitySupervisor: "IZAH BINTI MD JEDI", startDate: body.startDate, endDate: body.endDate, photo: "", logs: [], signature: { supervisorName: "", note: "", signedAt: "" } };
+    students.push(student); writeStudents(students);
+    return send(res, 201, { role: "student", id, redirect: "dashboard.html" });
+  }
+
   if (req.method === "GET" && url.pathname === "/api/students") {
     return send(res, 200, students.map(publicStudent));
   }
